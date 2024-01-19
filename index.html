@@ -1,0 +1,128 @@
+<html>
+<head>
+    <style>
+        body{
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(238,228,174,1) 18%, rgba(238,174,202,1) 44%, rgba(148,187,233,1) 94%);
+    text-align: center;
+    font-family: Avenir, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color:midnightblue;
+    min-height: 100vh;
+    min-width: 100vw;
+    height:100vh;
+    width:100vw;
+    display:flexbox;
+    padding-top: 5vh;
+    align-items:center;
+    justify-content: center;
+    }
+input {
+    width: 90px;
+    padding: 5px;
+    background-color:azure;
+    color: midnightblue;
+    border:none;
+    font-family: avenir;
+}
+button {
+    width: 120px;
+    padding: 10px;
+    margin: 10px;
+    background-color:azure;
+    color: midnightblue;
+    border-radius: 10px;
+    border:0px;
+}
+p {
+    font-size: 12px;
+    line-height: 2.5rem;
+    padding:0;
+}
+.result{
+    font-weight: 300;
+    color:#333333;
+    line-height: 1.5rem;
+    background-color: rgba(255,255,255,1) 0%;
+}
+a {
+    color:blue;
+}
+    </style>
+  <script>
+    // Generate a random hundred-digit number
+    function randomHundredDigitNumber() {
+      let number = "";
+      for (let i = 0; i < 100; i++) {
+        number += Math.floor(Math.random() * 10);
+      }
+      return number;
+    }
+
+    // Divide a number by a divisor and return the remainder
+    // If the remainder is zero, return the divisor instead
+    function remainder(number, divisor) {
+      let mod = number % divisor;
+      return mod === 0 ? divisor : mod;
+    }
+    // Convert a number to a Chinese character that represents a trigram
+    function trigram(number) {
+      switch (number) {
+        case 1:
+          return "☰ 乾";
+        case 2:
+          return "☱ 兌";
+        case 3:
+          return "☲ 離";
+        case 4:
+          return "☳ 震";
+        case 5:
+          return "☴ 巽";
+        case 6:
+          return "☵ 坎";
+        case 7:
+          return "☶ 艮";
+        case 8:
+          return "☷ 坤";
+        default:
+          return "Invalid number";
+      }
+    }
+
+    // Get the values from the input boxes and display the result
+    function getResult() {
+      // Get the first random number and divide it by 8
+      let X = trigram(remainder(document.getElementById("number1").value, 8));
+
+      // Get the second random number and divide it by 8
+      let Y = trigram(remainder(document.getElementById("number2").value, 8));
+
+      // Get the third random number and divide it by 6
+      let Z = remainder(document.getElementById("number3").value, 6);
+
+      // Combine the results with the format XY, Z
+      let result = `下卦：${X}`;
+      let result1= `上卦：${Y}`;
+      let result2= `爻辭：${Z}`;
+
+      // Display the result
+      document.getElementById("result").innerHTML = result;
+      document.getElementById("result1").innerHTML = result1;
+      document.getElementById("result2").innerHTML = result2;
+
+      // Set the Google search button href to the result XY
+      document.getElementById("googleButton").href = "https://www.google.com/search?q=" + X + Y;
+    }
+  </script>
+</head>
+<body>
+  <h1>易 I CHING</h1>
+  <p>Enter three random numbers between 1 and 999</p>
+  <p>第一個數字（下卦）：<input type="number" id="number1" name="number1" min="1" max="999"></p>
+  <p>第二個數字（上卦）：<input type="number" id="number2" name="number2" min="1" max="999"></p>
+  <p>第三個數字（變爻）：<input type="number" id="number3" name="number3" min="1" max="999"></p>
+  <p><button onclick="getResult()">誠心送出給宇宙</button></p>
+  <p class="result" id="result"></p>
+  <p class="result"  id="result1"></p>
+  <p  class="result"  id="result2"></p>
+  <p><a id="googleButton" href="https://www.google.com/" target="_blank">search results with google</a></p>
+</body>
+</html>
